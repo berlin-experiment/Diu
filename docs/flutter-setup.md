@@ -1,8 +1,8 @@
-## Flutter Installation & Simulator Setup Guide
-
-This guide is - _should be_ - useful for MacOS, Windows and Linux Users.
-
-<!-- ![Image Text]() -->
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/83240023/233135077-c57149e6-5d67-4932-9fe5-6d8573b11182.png" alt="Flutter Logo" height="50">
+  <h1>Flutter Installation & Simulator Setup Guide</h1>
+  <p>This guide is - <i>or should be</i> - useful for MacOS, Windows and Linux Users.</p>
+</div>
 
 ## Table of Contents
 
@@ -27,7 +27,10 @@ This guide is - _should be_ - useful for MacOS, Windows and Linux Users.
 
 ---
 
-# Installing Flutter and Setting Up Android Studio and iOS Simulator on MacOS
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/83240023/233133364-3d69abc6-949d-400b-aeb4-a89c3021a0ad.png" alt="MacOS" height="100">
+  <h1>Installing Flutter and Setting Up Android Studio and iOS Simulator on MacOS</h1>
+</div>
 
 This guide will walk you through the process of installing Flutter on your Mac and preparing Android Studio and the iOS simulator for use with Flutter projects.
 
@@ -89,7 +92,10 @@ Congratulations! You have successfully installed Flutter and set up Android Stud
 
 ---
 
-# Installing Flutter and Setting Up Android Studio and iOS Simulator on Windows
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/83240023/233134438-4150427b-2655-45a3-aa7b-080183e43033.png" alt="Windows" height="100">
+  <h1>Installing Flutter and Setting Up Android Studio and iOS Simulator on Windows</h1>
+</div>
 
 This guide will walk you through the process of installing Flutter on your Windows computer and preparing Android Studio and the iOS simulator for use with Flutter projects.
 
@@ -145,7 +151,10 @@ Congratulations! You have successfully installed Flutter and set up Android Stud
 
 ---
 
-# Installing Flutter and Setting Up Android Studio and iOS Simulator on Linux
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/83240023/233134656-9ffca4a1-a594-4b11-b2c8-b45ec33c39f0.png" alt="Linux" height="100">
+  <h1>Installing Flutter and Setting Up Android Studio and iOS Simulator on Linux</h1>
+</div>
 
 This guide will walk you through the process of installing Flutter on your Linux computer and preparing Android Studio and the iOS simulator for use with Flutter projects.
 
