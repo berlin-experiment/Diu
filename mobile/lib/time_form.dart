@@ -40,6 +40,7 @@ class _TimeFormState extends State<TimeForm> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
       child: Form(
@@ -65,7 +66,13 @@ class _TimeFormState extends State<TimeForm> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                      SnackBar(
+                        content: Text(
+                          'Processing Data',
+                          style: TextStyle(color: theme.colorScheme.onPrimary),
+                        ),
+                        backgroundColor: theme.colorScheme.background,
+                      ),
                     );
                   }
                 },
