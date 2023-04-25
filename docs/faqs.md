@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="https://rustacean.net/assets/rustacean-flat-happy.svg" alt="Flutter Logo" height="50">
-  <h1>Frequently Asked Questions3</h1>
+  <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/512/external-faq-web-store-flaticons-lineal-color-flat-icons.png" alt="FAQ Icon from Icons8" height="80">
+  <h1>Frequently Asked Questions</h1>
 </div>
 
 # Table of Contents
