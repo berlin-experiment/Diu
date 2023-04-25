@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://rustacean.net/assets/rustacean-flat-happy.svg" alt="Flutter Logo" height="50">
+  <img src="https://rustacean.net/assets/rustacean-flat-happy.svg" alt="Ferris from Rust: https://rustacean.net" height="50">
   <h1>Setting Up Rust and Cargo for ESP32 C3</h1>
 </div>
 
