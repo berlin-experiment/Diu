@@ -6,23 +6,25 @@ final customLightTheme = ThemeData(
   fontFamily: 'Raleway',
   textTheme: TextTheme(
     displayLarge: TextStyle(
+      fontFamily: 'Raleway',
       fontSize: 24.0,
       fontWeight: FontWeight.bold,
       color: Colors.grey[800],
     ),
     bodyLarge: TextStyle(
+      fontFamily: 'Raleway',
       fontSize: 16.0,
       color: Colors.grey[800],
     ),
   ),
   colorScheme: const ColorScheme.light(
-    primary: Colors.blueGrey,
-    onPrimary: Colors.blueGrey,
+    primary: Colors.grey,
+    onPrimary: Colors.grey,
     secondary: Colors.grey,
     onSecondary: Colors.white,
     surface: Colors.white,
     onSurface: Colors.grey,
-  ).copyWith(secondary: Colors.blueGrey),
+  ).copyWith(secondary: Colors.grey),
   appBarTheme: const AppBarTheme(
     elevation: 0,
     backgroundColor: Colors.transparent,
@@ -48,22 +50,24 @@ final customDarkTheme = ThemeData(
   fontFamily: 'Raleway',
   textTheme: const TextTheme(
     displayLarge: TextStyle(
+      fontFamily: 'Raleway',
       fontSize: 24.0,
       fontWeight: FontWeight.bold,
       color: Colors.blue,
     ),
     bodyLarge: TextStyle(
+      fontFamily: 'Raleway',
       fontSize: 16.0,
       color: Colors.blue,
     ),
   ),
   colorScheme: const ColorScheme.dark(
-    primary: Colors.white,
-    onPrimary: Colors.white,
+    primary: Colors.blueGrey,
+    onPrimary: Colors.blueGrey,
     secondary: Colors.blueGrey,
-    onSecondary: Colors.white,
+    onSecondary: Colors.grey,
     surface: Colors.grey,
-    onSurface: Colors.white,
+    onSurface: Colors.blueGrey,
   ).copyWith(secondary: Colors.blueGrey),
   appBarTheme: const AppBarTheme(
     elevation: 0,
@@ -75,7 +79,7 @@ final customDarkTheme = ThemeData(
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         side: const BorderSide(
-          color: Colors.white,
+          color: Colors.blueGrey,
           width: 1.0,
         ),
         borderRadius: BorderRadius.circular(8.0),
