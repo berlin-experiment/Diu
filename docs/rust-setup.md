@@ -1,6 +1,24 @@
-## Setting Up Rust and Cargo for ESP32 Nimble
+<div align="center">
+  <img src="https://rustacean.net/assets/rustacean-flat-happy.svg" alt="Flutter Logo" height="50">
+  <h1>Setting Up Rust and Cargo for ESP32 C3</h1>
+</div>
 
-This guide will help you set up Rust and Cargo for a project with ESP32 Nimble for an ESP32C3.
+This guide will help you set up Rust and Cargo for a project with ESP32C3 for DIU.
+
+- [Setting Up Rust and Cargo for ESP32 C3](#setting-up-rust-and-cargo-for-esp32-c3)
+  - [Prerequisites](#prerequisites)
+    - [macOS](#macos)
+    - [Debian/Ubuntu/etc.](#debianubuntuetc)
+    - [Fedora](#fedora)
+  - [Installing Rust & Clang Toolchains for Espressif SoCs (with espup)](#installing-rust--clang-toolchains-for-espressif-socs-with-espup)
+  - [Generating the Project](#generating-the-project)
+  - [Building the Project](#building-the-project)
+  - [Flashing the Project](#flashing-the-project)
+    - [Monitoring the Project](#monitoring-the-project)
+  - [Adding Dependencies](#adding-dependencies)
+  - [Updating sdkconfig.defaults](#updating-sdkconfigdefaults)
+
+---
 
 ### Prerequisites
 
@@ -274,4 +292,6 @@ CONFIG_BT_NIMBLE_ENABLED=y
 
 Save the file and you're all set.
 
-Congratulations! You have successfully set up Rust and Cargo for a project with ESP32 Nimble for an ESP32C3. You can now use Rust to create amazing projects for your ESP32C3.
+---
+
+### Congratulations! You have successfully set up Rust and Cargo for a project with ESP32C3 for Diu.
