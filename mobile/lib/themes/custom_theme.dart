@@ -18,7 +18,7 @@ final customLightTheme = ThemeData(
   colorScheme: const ColorScheme.light(
     primary: Colors.blueGrey,
     onPrimary: Colors.blueGrey,
-    secondary: Colors.blueGrey,
+    secondary: Colors.grey,
     onSecondary: Colors.white,
     surface: Colors.white,
     onSurface: Colors.grey,
@@ -32,8 +32,8 @@ final customLightTheme = ThemeData(
       elevation: 0,
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Colors.black,
+        side: const BorderSide(
+          color: Colors.grey,
           width: 1.0,
         ),
         borderRadius: BorderRadius.circular(8.0),
@@ -58,7 +58,7 @@ final customDarkTheme = ThemeData(
     ),
   ),
   colorScheme: const ColorScheme.dark(
-    primary: Colors.grey,
+    primary: Colors.white,
     onPrimary: Colors.white,
     secondary: Colors.blueGrey,
     onSecondary: Colors.white,
@@ -74,7 +74,7 @@ final customDarkTheme = ThemeData(
       elevation: 0,
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
-        side: BorderSide(
+        side: const BorderSide(
           color: Colors.white,
           width: 1.0,
         ),
