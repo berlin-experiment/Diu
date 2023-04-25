@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'app_bar.dart';
+import 'ball_button.dart';
 import 'time_form.dart';
 
 class ControlPage extends StatefulWidget {
@@ -9,6 +11,7 @@ class ControlPage extends StatefulWidget {
 }
 
 class _ControlPageState extends State<ControlPage> {
+  final DateTime currentTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,20 +20,15 @@ class _ControlPageState extends State<ControlPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            SizedBox(
+          children: [
+            const SizedBox(
               height: 20.0,
             ),
+            BallButton(currentTime: currentTime),
             TimeForm(),
           ],
         ),
       ),
-    );
-  }
-
-  AppBar diuAppBar() {
-    return AppBar(
-      title: const Text("DIU"),
     );
   }
 }
