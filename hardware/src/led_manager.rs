@@ -5,6 +5,7 @@ use esp_idf_hal::rmt::*;
 
 pub struct LedManager<'a> {
     nr_leds: u8,
+    current_theme: ColorTheme,
     current_leds: Vec<Led>,
     target_leds: Vec<Led>,
     tx: TxRmtDriver<'a>,
@@ -16,20 +17,46 @@ pub struct LedManager<'a> {
 }
 
 enum ValueComparison {
-    greater,
-    lesser,
-    equal,
+    Greater,
+    Lesser,
+    Equal,
 }
 
 fn compare_values(value: f32, comparison: f32) -> ValueComparison {
     if value > comparison {
-        return ValueComparison::greater;
+        return ValueComparison::Greater;
     }
     if value < comparison {
-        return ValueComparison::lesser;
+        return ValueComparison::Lesser;
     }
-    return ValueComparison::equal;
+    return ValueComparison::Equal;
 }
+
+#[derive(Clone, Copy)]
+pub enum ColorTheme {
+    NoLight,
+    Sunrise,
+    Noon,
+    Sunset,
+    Moonlight,
+}
+
+// Here's a brief explanation of the changes:
+
+// SUNRISE_COLORS: I chose warmer colors that resemble the golden hues of a sunrise.
+// NOON_COLORS: I kept the colors bright and added a subtle blue to resemble a clear sky at noon.
+// SUNSET_COLORS: I adjusted the colors to represent the warm and vivid tones of a sunset.
+// MOONLIGHT_COLORS: I selected cooler shades of blue to represent the soft, ambient light of the moon.
+
+const NO_LIGHT_COLORS: [(f32, f32, f32); 2] = [(0.0, 0.0, 0.0), (0.0, 0.0, 0.0)];
+
+const SUNRISE_COLORS: [(f32, f32, f32); 2] = [(255.0, 120.0, 0.0), (245.0, 10.0, 10.0)];
+
+const NOON_COLORS: [(f32, f32, f32); 2] = [(245.0, 255.0, 240.0), (255.0, 255.0, 240.0)];
+
+const SUNSET_COLORS: [(f32, f32, f32); 2] = [(230.0, 20.0, 50.0), (255.0, 10.0, 10.0)];
+
+const MOONLIGHT_COLORS: [(f32, f32, f32); 2] = [(255.0, 240.0, 245.0), (188.0, 143.0, 143.0)];
 
 impl LedManager<'_> {
     pub fn new(nr_leds: u8) -> Self {
@@ -58,7 +85,7 @@ impl LedManager<'_> {
                 green: 0.0,
                 blue: 0.0,
                 alpha: 0.0,
-                brightness_increment: 0.01,
+                brightness_increment: 0.1,
             })
         }
 
@@ -68,12 +95,13 @@ impl LedManager<'_> {
                 green: 0.0,
                 blue: 0.0,
                 alpha: 0.0,
-                brightness_increment: 0.01,
+                brightness_increment: 0.1,
             })
         }
 
         LedManager {
             nr_leds: nr_leds,
+            current_theme: ColorTheme::NoLight,
             current_leds: led_vec,
             target_leds: target_led_vec,
             tx: tx,
@@ -82,6 +110,30 @@ impl LedManager<'_> {
             t1h: t1h,
             t1l: t1l,
             signal: signal,
+        }
+    }
+
+    pub fn set_theme(&mut self, theme: ColorTheme) {
+        self.current_theme = theme;
+        match theme {
+            ColorTheme::NoLight => self.set_all_colors(&NO_LIGHT_COLORS),
+            ColorTheme::Sunrise => self.set_all_colors(&SUNRISE_COLORS),
+            ColorTheme::Noon => self.set_all_colors(&NOON_COLORS),
+            ColorTheme::Sunset => self.set_all_colors(&SUNSET_COLORS),
+            ColorTheme::Moonlight => self.set_all_colors(&MOONLIGHT_COLORS),
+        }
+        self.update();
+    }
+
+    pub fn set_all_colors(&mut self, colors: &[(f32, f32, f32)]) {
+        let mut index = 0;
+        for target in self.target_leds.iter_mut() {
+            let (red, green, blue) = colors[index];
+            target.set_rgb(red, green, blue);
+            index += 1;
+            if index >= colors.len() {
+                index = 0;
+            }
         }
     }
 
@@ -97,15 +149,15 @@ impl LedManager<'_> {
         }
     }
 
-    pub fn set_all_rgb(&mut self, red: f32, green: f32, blue: f32) {
-        for target in self.target_leds.iter_mut() {
-            target.set_rgb(red, green, blue);
-        }
-    }
-
     pub fn set_increment(&mut self, increment: f32) {
         for led in self.current_leds.iter_mut() {
             led.brightness_increment = increment;
+        }
+    }
+
+    pub fn set_all_rgb(&mut self, red: f32, green: f32, blue: f32) {
+        for target in self.target_leds.iter_mut() {
+            target.set_rgb(red, green, blue);
         }
     }
 
@@ -119,41 +171,41 @@ impl LedManager<'_> {
             let diff_blue: f32 = led.blue - self.target_leds[i].blue;
 
             match compare_values(diff_alpha, 0.0) {
-                ValueComparison::greater => {
+                ValueComparison::Greater => {
                     led.set_brightness(led.alpha - led.brightness_increment)
                 }
-                ValueComparison::lesser => led.set_brightness(led.alpha + led.brightness_increment),
-                ValueComparison::equal => {}
+                ValueComparison::Lesser => led.set_brightness(led.alpha + led.brightness_increment),
+                ValueComparison::Equal => {}
             }
 
             match compare_values(diff_red, 0.0) {
-                ValueComparison::greater => {
+                ValueComparison::Greater => {
                     led.set_rgb(led.red - led.brightness_increment, led.green, led.blue)
                 }
-                ValueComparison::lesser => {
+                ValueComparison::Lesser => {
                     led.set_rgb(led.red + led.brightness_increment, led.green, led.blue)
                 }
-                ValueComparison::equal => {}
+                ValueComparison::Equal => {}
             }
 
             match compare_values(diff_green, 0.0) {
-                ValueComparison::greater => {
+                ValueComparison::Greater => {
                     led.set_rgb(led.red, led.green - led.brightness_increment, led.blue)
                 }
-                ValueComparison::lesser => {
+                ValueComparison::Lesser => {
                     led.set_rgb(led.red, led.green + led.brightness_increment, led.blue)
                 }
-                ValueComparison::equal => {}
+                ValueComparison::Equal => {}
             }
 
             match compare_values(diff_blue, 0.0) {
-                ValueComparison::greater => {
+                ValueComparison::Greater => {
                     led.set_rgb(led.red, led.green, led.blue - led.brightness_increment)
                 }
-                ValueComparison::lesser => {
+                ValueComparison::Lesser => {
                     led.set_rgb(led.red, led.green, led.blue + led.brightness_increment)
                 }
-                ValueComparison::equal => {}
+                ValueComparison::Equal => {}
             }
 
             // Send values to leds
@@ -172,16 +224,13 @@ impl LedManager<'_> {
                 signal
                     .push(vec![&high_pulse, &low_pulse].into_iter())
                     .unwrap();
-                // self.signal
-                //     .set((23 * i) - j as usize, &(high_pulse, low_pulse))
-                //     .unwrap();
             }
         }
         self.tx.start_blocking(&signal).unwrap();
     }
 }
 
-struct Led {
+pub struct Led {
     red: f32,
     green: f32,
     blue: f32,
