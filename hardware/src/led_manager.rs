@@ -34,28 +34,13 @@ fn compare_values(value: f32, comparison: f32) -> ValueComparison {
 
 #[derive(Clone, Copy)]
 pub enum ColorTheme {
-    NoLight,
-    Sunrise,
+    Sun,
     Noon,
-    Sunset,
     Moonlight,
 }
 
-// Here's a brief explanation of the changes:
-
-// SUNRISE_COLORS: I chose warmer colors that resemble the golden hues of a sunrise.
-// NOON_COLORS: I kept the colors bright and added a subtle blue to resemble a clear sky at noon.
-// SUNSET_COLORS: I adjusted the colors to represent the warm and vivid tones of a sunset.
-// MOONLIGHT_COLORS: I selected cooler shades of blue to represent the soft, ambient light of the moon.
-
-const NO_LIGHT_COLORS: [(f32, f32, f32); 2] = [(0.0, 0.0, 0.0), (0.0, 0.0, 0.0)];
-
-const SUNRISE_COLORS: [(f32, f32, f32); 2] = [(255.0, 120.0, 0.0), (245.0, 10.0, 10.0)];
-
+const SUN_COLORS: [(f32, f32, f32); 2] = [(230.0, 20.0, 50.0), (255.0, 10.0, 10.0)];
 const NOON_COLORS: [(f32, f32, f32); 2] = [(245.0, 255.0, 240.0), (255.0, 255.0, 240.0)];
-
-const SUNSET_COLORS: [(f32, f32, f32); 2] = [(230.0, 20.0, 50.0), (255.0, 10.0, 10.0)];
-
 const MOONLIGHT_COLORS: [(f32, f32, f32); 2] = [(255.0, 240.0, 245.0), (188.0, 143.0, 143.0)];
 
 impl LedManager<'_> {
@@ -101,7 +86,7 @@ impl LedManager<'_> {
 
         LedManager {
             nr_leds: nr_leds,
-            current_theme: ColorTheme::NoLight,
+            current_theme: ColorTheme::Sun,
             current_leds: led_vec,
             target_leds: target_led_vec,
             tx: tx,
@@ -116,10 +101,8 @@ impl LedManager<'_> {
     pub fn set_theme(&mut self, theme: ColorTheme) {
         self.current_theme = theme;
         match theme {
-            ColorTheme::NoLight => self.set_all_colors(&NO_LIGHT_COLORS),
-            ColorTheme::Sunrise => self.set_all_colors(&SUNRISE_COLORS),
+            ColorTheme::Sun => self.set_all_colors(&SUN_COLORS),
             ColorTheme::Noon => self.set_all_colors(&NOON_COLORS),
-            ColorTheme::Sunset => self.set_all_colors(&SUNSET_COLORS),
             ColorTheme::Moonlight => self.set_all_colors(&MOONLIGHT_COLORS),
         }
         self.update();
@@ -172,9 +155,11 @@ impl LedManager<'_> {
 
             match compare_values(diff_alpha, 0.0) {
                 ValueComparison::Greater => {
-                    led.set_brightness(led.alpha - led.brightness_increment)
+                    led.set_brightness(led.alpha - led.brightness_increment / 255.0)
                 }
-                ValueComparison::Lesser => led.set_brightness(led.alpha + led.brightness_increment),
+                ValueComparison::Lesser => {
+                    led.set_brightness(led.alpha + led.brightness_increment / 255.0)
+                }
                 ValueComparison::Equal => {}
             }
 
