@@ -3,9 +3,10 @@ extern crate alloc;
 use esp32_nimble::{enums::*, utilities::BleUuid, uuid128, BLEDevice, NimbleProperties};
 use esp_idf_sys::ble_gap_conn_desc;
 
-pub fn initialize_ble_server<F>(light_msg_handler: F)
+pub fn initialize_ble_server<F, G>(light_msg_handler: F, time_msg_handler: G)
 where
     F: FnMut(&[u8], &ble_gap_conn_desc) -> () + Send + std::marker::Sync + 'static,
+    G: FnMut(&[u8], &ble_gap_conn_desc) -> () + Send + std::marker::Sync + 'static,
 {
     let device = BLEDevice::take();
     device
@@ -21,20 +22,31 @@ where
         device.get_advertising().start().unwrap();
     });
     // A writable characteristic.
-    let writable_characteristic = service.lock().create_characteristic(
+    let on_off_characteristic = service.lock().create_characteristic(
         uuid128!("3c9a3f00-8ed3-4bdf-8a39-000000000001"),
-        NimbleProperties::READ | NimbleProperties::WRITE,
+        NimbleProperties::READ_AUTHEN | NimbleProperties::WRITE_AUTHEN,
     );
-    writable_characteristic
+    on_off_characteristic
         .lock()
         .on_read(move |_, _| {
             println!("Read from writable characteristic.");
         })
         .on_write(light_msg_handler);
 
-    writable_characteristic
+    on_off_characteristic.lock().set_value("On/Off".as_bytes());
+
+    let time_characteristic = service.lock().create_characteristic(
+        uuid128!("3c9a3f00-8ed3-4bdf-8a39-000000000002"),
+        NimbleProperties::READ_AUTHEN | NimbleProperties::WRITE_AUTHEN,
+    );
+    time_characteristic
         .lock()
-        .set_value("Talk to Me".as_bytes());
+        .on_read(move |_, _| {
+            println!("Read from writable characteristic.");
+        })
+        .on_write(time_msg_handler);
+
+    time_characteristic.lock().set_value("On/Off".as_bytes());
 
     // non-secure characteristics
     let non_secure_characteristic = service
