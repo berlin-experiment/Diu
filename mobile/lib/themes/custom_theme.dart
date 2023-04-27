@@ -46,7 +46,7 @@ final customLightTheme = ThemeData(
 
 final customDarkTheme = ThemeData(
   brightness: Brightness.dark,
-  primaryColor: Colors.grey,
+  primaryColor: Colors.black,
   fontFamily: 'Raleway',
   textTheme: const TextTheme(
     displayLarge: TextStyle(
@@ -66,7 +66,7 @@ final customDarkTheme = ThemeData(
     onPrimary: Colors.blueGrey,
     secondary: Colors.blueGrey,
     onSecondary: Colors.grey,
-    surface: Colors.grey,
+    surface: Colors.black,
     onSurface: Colors.blueGrey,
   ).copyWith(secondary: Colors.blueGrey),
   appBarTheme: const AppBarTheme(
