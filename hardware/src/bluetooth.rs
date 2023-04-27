@@ -24,7 +24,7 @@ where
     // A writable characteristic.
     let on_off_characteristic = service.lock().create_characteristic(
         uuid128!("3c9a3f00-8ed3-4bdf-8a39-000000000001"),
-        NimbleProperties::READ_AUTHEN | NimbleProperties::WRITE_AUTHEN,
+        NimbleProperties::READ | NimbleProperties::WRITE,
     );
     on_off_characteristic
         .lock()
@@ -37,7 +37,7 @@ where
 
     let time_characteristic = service.lock().create_characteristic(
         uuid128!("3c9a3f00-8ed3-4bdf-8a39-000000000002"),
-        NimbleProperties::READ_AUTHEN | NimbleProperties::WRITE_AUTHEN,
+        NimbleProperties::READ | NimbleProperties::WRITE,
     );
     time_characteristic
         .lock()
@@ -46,7 +46,7 @@ where
         })
         .on_write(time_msg_handler);
 
-    time_characteristic.lock().set_value("On/Off".as_bytes());
+    time_characteristic.lock().set_value("Time".as_bytes());
 
     // non-secure characteristics
     let non_secure_characteristic = service

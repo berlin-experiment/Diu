@@ -3,10 +3,13 @@ use esp_idf_hal::delay::FreeRtos;
 
 mod bluetooth;
 mod led_manager;
+mod time_manager;
 
 use bluetooth::initialize_ble_server;
 use led_manager::ColorTheme;
 use led_manager::LedManager;
+use time_manager::SetTime;
+use time_manager::TimeManager;
 
 fn main() -> Result<()> {
     esp_idf_sys::link_patches();
@@ -54,8 +57,22 @@ fn main() -> Result<()> {
         drop(led_manager);
     };
 
+    let mut time_manager = TimeManager::new();
+
     let time_msg_handler = move |value: &[u8], _param: &esp_idf_sys::ble_gap_conn_desc| {
         let string = std::str::from_utf8(value).unwrap();
+
+        match SetTime::get_type(string) {
+            SetTime::CurrentTime => {
+                time_manager.set_time(string, SetTime::CurrentTime);
+            }
+            SetTime::SunriseTime => {
+                time_manager.set_time(string, SetTime::SunriseTime);
+            }
+            SetTime::SunsetTime => {
+                time_manager.set_time(string, SetTime::SunsetTime);
+            }
+        }
         println!("{}", string);
     };
 
