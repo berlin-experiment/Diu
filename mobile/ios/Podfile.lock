@@ -6,11 +6,17 @@ PODS:
   - flutter_blue_plus/Protos (0.0.1):
     - Flutter
     - Protobuf (~> 3.11)
+  - location (0.0.1):
+    - Flutter
+  - permission_handler_apple (9.0.4):
+    - Flutter
   - Protobuf (3.22.1)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_blue_plus (from `.symlinks/plugins/flutter_blue_plus/ios`)
+  - location (from `.symlinks/plugins/location/ios`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
 
 SPEC REPOS:
   trunk:
@@ -21,10 +27,16 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_blue_plus:
     :path: ".symlinks/plugins/flutter_blue_plus/ios"
+  location:
+    :path: ".symlinks/plugins/location/ios"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_blue_plus: 6787777145d615de01828f3a9fa423c3c702f0b3
+  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
+  permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   Protobuf: d7f7c8329edf5eb8af65547a8ba3e9c1cee927d5
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
