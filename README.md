@@ -17,6 +17,8 @@
 
 ## Security Measures
 
+Refer to the project documentation for information regarding the security threats, measures, threat model, and mitigation strategies for the Diu Hardware project.
+
 ## Getting Started
 
 Please refer to the project documentation and setup guides for detailed instructions on configuring and deploying the Diu system. The documentation covers the following topics:
