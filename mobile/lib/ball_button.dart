@@ -10,9 +10,12 @@ enum ColorScheme {
 }
 
 class BallButton extends StatefulWidget {
-  const BallButton({Key? key, required this.currentTime}) : super(key: key);
+  const BallButton(
+      {Key? key, required this.currentTime, required this.toggleOnOff})
+      : super(key: key);
 
   final DateTime currentTime;
+  final Function(bool value) toggleOnOff;
 
   @override
   _BallButtonState createState() => _BallButtonState();
@@ -67,6 +70,7 @@ class _BallButtonState extends State<BallButton> with TickerProviderStateMixin {
     setState(() {
       isOn = !isOn;
     });
+    widget.toggleOnOff(isOn);
     updateColors();
   }
 
