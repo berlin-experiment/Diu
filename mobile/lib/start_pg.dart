@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:Diu/app_bar.dart';
+import 'package:Diu/control_pg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,13 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     return Consumer<BleService>(builder: (context, ble, child) {
       void selectResult(ScanResult result) async {
-        ble.connectToDevice(result).then((result) => null);
+        ble.connectToDevice(result).then(
+              (result) => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ControlPage(),
+                ),
+              ),
+            );
       }
 
       Widget createTileItem(ScanResult result) {
