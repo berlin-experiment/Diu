@@ -1,4 +1,4 @@
-# Diu Software Security README
+# Diu Software Security
 
 This README file provides an overview of the security concerns and measures for the Diu Software project.
 
