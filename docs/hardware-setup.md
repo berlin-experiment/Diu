@@ -40,6 +40,11 @@
 - Connect the GND (Ground) pins of all the LEDs to the GND pin of the XIAO ESP32C3.
 - Connect the 5V pins of all the LEDs to the 5V power supply.
 
+<div align="center">
+  <img src="https://files.seeedstudio.com/wiki/XIAO_WiFi/pin_map-2.png" alt="Pinout Diagram from https://seeeddstudio.com/XIAO_ESP32C3_Getting_Started/" height="200">
+  <p>Pinout diagram</p>
+</div>
+
 ## 4. Connect the LEDs in series:
 
 - Connect the DOUT (Data Output) pin of the first LED to the DIN pin of the second LED.
@@ -49,6 +54,11 @@
 
 - If your XIAO ESP32C3 module does not have an integrated antenna, connect the appropriate antenna to the antenna pin or connector on the ESP32C3.
 
+<div align="center">
+  <img src="https://files.seeedstudio.com/wiki/XIAO_WiFi/front-label-3.png" alt="Component overview from https://seeeddstudio.com/XIAO_ESP32C3_Getting_Started/" height="300">
+  <p>Component overview</p>
+</div>
+
 ## 6. Apply the light diffuser:
 
 - Cut the light diffuser material to the appropriate size and shape to cover the WS2812B LEDs.
@@ -57,6 +67,11 @@
 ## 7. Power the setup:
 
 - Connect the 5V power supply to the XIAO ESP32C3 and ensure the WS2812B LEDs are receiving power.
+
+<div align="center">
+  <img src="https://files.seeedstudio.com/wiki/XIAO_WiFi/cable-connect.png" alt="Component overview from https://seeeddstudio.com/XIAO_ESP32C3_Getting_Started/" height="300">
+  <p>Connect the 5V power supply</p>
+</div>
 
 # Test and configure the system:
 
