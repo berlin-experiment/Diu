@@ -15,8 +15,8 @@ fn main() -> Result<()> {
     let led_manager_clone = std::sync::Arc::clone(&led_manager_pointer);
     let mut led_manager = led_manager_pointer.lock().unwrap();
 
-    led_manager.set_increment(0.1);
-    let theme = ColorTheme::Sunrise;
+    led_manager.set_increment(0.25);
+    let theme = ColorTheme::Sun;
 
     drop(led_manager);
 
@@ -37,17 +37,13 @@ fn main() -> Result<()> {
             println!("{}", "Turning off");
         }
 
-        if string.to_uppercase().contains("SUNRISE") {
-            led_manager.set_theme(ColorTheme::Sunrise);
+        if string.to_uppercase().contains("SUN") {
+            led_manager.set_theme(ColorTheme::Sun);
             println!("{}", "Sunrise theme");
         }
         if string.to_uppercase().contains("NOON") {
             led_manager.set_theme(ColorTheme::Noon);
             println!("{}", "Noon theme");
-        }
-        if string.to_uppercase().contains("SUNSET") {
-            led_manager.set_theme(ColorTheme::Sunset);
-            println!("{}", "Sunset theme");
         }
         if string.to_uppercase().contains("MOON") {
             led_manager.set_theme(ColorTheme::Moonlight);
@@ -58,12 +54,17 @@ fn main() -> Result<()> {
         drop(led_manager);
     };
 
-    initialize_ble_server(light_msg_handler);
+    let time_msg_handler = move |value: &[u8], _param: &esp_idf_sys::ble_gap_conn_desc| {
+        let string = std::str::from_utf8(value).unwrap();
+        println!("{}", string);
+    };
+
+    initialize_ble_server(light_msg_handler, time_msg_handler);
 
     loop {
         let mut led_manager = led_manager_pointer.lock().unwrap();
         led_manager.update();
         drop(led_manager);
-        FreeRtos::delay_ms(5);
+        FreeRtos::delay_us(200);
     }
 }
