@@ -1,10 +1,5 @@
 # Hardware Details
 
-**Author:** Stacey Kenny  
-**Institution:** CODE University of Applied Sciences  
-**Course:** SE_12 Internet of Things, Coordinator: Ulrich von Zadow  
-**Semester:** Spring 2023
-
 ## 1. System Overview
 
 The IoT system developed in this project is a smart lighting system that can be controlled remotely using a Flutter application via WiFi and Bluetooth connectivity. The system utilizes a Seeed Studio Xiao ESP32C3 microcontroller, individually addressable WS2812B LEDs, push buttons, and a potentiometer. The purpose of this IoT system is to create a light alarm that serves as an alternative to a standard sound alarm and as an artificial sun during the winter months when daylight is significantly reduced in certain regions. The system is designed to provide users with a customizable lighting solution that can be adjusted to their preferences using both manual controls and remote access.
