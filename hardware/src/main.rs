@@ -14,7 +14,7 @@ use time_manager::TimeManager;
 fn main() -> Result<()> {
     esp_idf_sys::link_patches();
 
-    let led_manager_pointer = std::sync::Arc::new(std::sync::Mutex::new(LedManager::new(2)));
+    let led_manager_pointer = std::sync::Arc::new(std::sync::Mutex::new(LedManager::new(12)));
     let led_manager_clone = std::sync::Arc::clone(&led_manager_pointer);
     let mut led_manager = led_manager_pointer.lock().unwrap();
 
@@ -61,7 +61,6 @@ fn main() -> Result<()> {
 
     let time_msg_handler = move |value: &[u8], _param: &esp_idf_sys::ble_gap_conn_desc| {
         let string = std::str::from_utf8(value).unwrap();
-
         match SetTime::get_type(string) {
             SetTime::CurrentTime => {
                 time_manager.set_time(string, SetTime::CurrentTime);
